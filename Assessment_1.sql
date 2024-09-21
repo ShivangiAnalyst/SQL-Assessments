@@ -19,7 +19,7 @@ SELECT * FROM WORKER WHERE FIRST_NAME LIKE "_____H" ;
 
 -- 4. Write an SQL query to print details of the Workers whose SALARY lies between 1. 
 
-SELECT * FROM WORKER WHERE SALARY = 1 ;
+SELECT * FROM WORKER WHERE SALARY BETWEEN 1 AND 100000;
 
 -- 5. Write an SQL query to fetch duplicate records having matching data in some fields of a table. 
 
@@ -43,4 +43,10 @@ SELECT DEPARTMENT, COUNT(*) AS NUMBER_OF_PEOPLE FROM WORKER GROUP BY DEPARTMENT;
 
 -- 9. Write an SQL query to print the name of employees having the highest salary in each department. 
 
-SELECT FIRST_NAME,LAST_NAME,MAX(SALARY) FROM WORKER GROUP BY DEPARTMENT ;
+SELECT FIRST_NAME, DEPARTMENT, SALARY
+FROM WORKER
+WHERE (DEPARTMENT, SALARY) IN (
+    SELECT DEPARTMENT, MAX(SALARY)
+    FROM WORKER
+    GROUP BY DEPARTMENT
+);
